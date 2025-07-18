@@ -3,7 +3,7 @@
 
 #define FLAG_FORCE (1 << 2)
 
-const char* usage = "cp [SOURCE] [DESTINATION]\ncopy the content of SOURCE to DESTINATION";
+const char* usage = "cp [SOURCE] [DESTINATION]\ncopy the content of SOURCE to DESTINATION\n-f, --force    force copy the SOURCE in DESTINATION, if it exists or not";
 
 struct option options[] = {
   opt("force",'f',FLAG_FORCE,"force create file if exists"),
