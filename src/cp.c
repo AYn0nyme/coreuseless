@@ -9,19 +9,18 @@ struct option options[] = {
   opt("force",'f',FLAG_FORCE,"force create file if exists"),
 };
 
-void cp(const char* from, const char* to, int flags) {
+int cp(const char* from, const char* to, int flags) {
   FILE* file = fopen(from, "r");
   if (file == NULL) {
-    printf("cp : file %s not found\n", from);
-    return;
+    printf("cp: file %s not found\n", from);
+    return 1;
   }
   FILE* new_file = fopen(to, "r");
   if(new_file != NULL && !(flags & FLAG_FORCE)) {
-    printf("cp : file %s already exists\n", to);
-    return;
+    printf("cp: file %s already exists\n", to);
+    return 1;
   }
   new_file = fopen(to, "w");
-  fprintf(new_file, "");
   char c;
   while((c = fgetc(file)) != EOF) {
     fputc(c, new_file);
@@ -29,6 +28,7 @@ void cp(const char* from, const char* to, int flags) {
 
   fclose(file);
   fclose(new_file);
+  return 0;
 }
 
 int main(int argc, char** argv) {
@@ -44,12 +44,13 @@ int main(int argc, char** argv) {
       from = argv[c];
     } else if (count == 1) {
       to = argv[c];
+      break;
     }
     count++;
   }
   if (count == 0) {
-    puts("cp : missing arguments");
+    puts("cp: missing arguments");
     return 1;
   }
-  cp(from, to, flags);
+  return cp(from, to, flags);
 }
