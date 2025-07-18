@@ -12,12 +12,12 @@ struct option options[] = {
 void cp(const char* from, const char* to, int flags) {
   FILE* file = fopen(from, "r");
   if (file == NULL) {
-    printf("cp : file %s not found\n", from);
+    printf("cp: file %s not found\n", from);
     return;
   }
   FILE* new_file = fopen(to, "r");
   if(new_file != NULL && !(flags & FLAG_FORCE)) {
-    printf("cp : file %s already exists\n", to);
+    printf("cp: file %s already exists\n", to);
     return;
   }
   new_file = fopen(to, "w");
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     count++;
   }
   if (count == 0) {
-    puts("cp : missing arguments");
+    puts("cp: missing arguments");
     return 1;
   }
   cp(from, to, flags);
