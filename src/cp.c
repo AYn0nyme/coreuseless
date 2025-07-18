@@ -1,26 +1,27 @@
 #include "../include/utils.h"
 #include <stdio.h>
 
-#define FLAG_THING (1 << 2)
+#define FLAG_FORCE (1 << 2)
 
 const char* usage = "cp [SOURCE] [DESTINATION]\ncopy the content of SOURCE to DESTINATION";
 
 struct option options[] = {
-  opt("force",'f',FLAG_THING,"force create file if exists"),
+  opt("force",'f',FLAG_FORCE,"force create file if exists"),
 };
 
 void cp(const char* from, const char* to, int flags) {
   FILE* file = fopen(from, "r");
   if (file == NULL) {
-    printf("cp : file %s not found", from);
+    printf("cp : file %s not found\n", from);
     return;
   }
   FILE* new_file = fopen(to, "r");
-  if(new_file != NULL && !(flags & FLAG_THING)) {
-    printf("cp : file %s already exists", to);
+  if(new_file != NULL && !(flags & FLAG_FORCE)) {
+    printf("cp : file %s already exists\n", to);
     return;
   }
   new_file = fopen(to, "w");
+  fprintf(new_file, "");
   char c;
   while((c = fgetc(file)) != EOF) {
     fputc(c, new_file);
