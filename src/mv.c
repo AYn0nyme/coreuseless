@@ -28,7 +28,6 @@ int mv(char* from, const char* to, int flags) {
     char* filename;
     char* tmp = strdup(from);
     while((filename = strtok_r(tmp, "/", &tmp))){
-      puts(filename);
       if(strlen(tmp) == 0)break;
     }
     strcat(dest, filename);
@@ -72,7 +71,7 @@ int main(int argc, char** argv) {
   }
 
   if(from == NULL || to == NULL) {
-    puts("mv: need SOURCE and DESTINATION args\n");
+    puts("mv: need SOURCE and DESTINATION args");
     return 1;
   }
 
