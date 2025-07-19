@@ -22,7 +22,6 @@ int rm(const char* path, int flag) {
       char* file_path = strdup(path);
       strcat(file_path, "/");
       strcat(file_path, content->d_name);
-      puts(file_path);
       rm(file_path, flag);
     }
     return remove(path);
