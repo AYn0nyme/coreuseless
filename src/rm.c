@@ -6,7 +6,7 @@
 #define FLAG_RECURSIVE (1 << 0)
 #define FLAG_VERBOSE (1 << 1)
 
-const char* usage = "rm [FILES...]\nremove FILES from the filesystem";
+const char* usage = "rm [FILES...]\nremove FILES from the filesystem\n-r, --recursive   delete folders\n-i, --verbose   program gets verbose";
 
 struct option options[] = {
   opt("recursive",'r',FLAG_RECURSIVE,"delete folders"),
