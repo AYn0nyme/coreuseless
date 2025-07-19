@@ -5,7 +5,7 @@
 
 extern const char* usage;
 
-const char* version = "FROST Coreuseless version 1.0\nhttps://github.com/AYn0nyme/coreuseless - Report issues: https://github.com/AYn0nyme/coreuseless#issues";
+const char* version = "FROST Coreuseless version 1.0\nhttps://github.com/AYn0nyme/coreuseless - Report issues: https://github.com/AYn0nyme/coreuseless/issues";
 
 int parse_args(int argc, char **argv, struct option options[], size_t options_count){
   int flags;
