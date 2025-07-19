@@ -46,33 +46,3 @@ int parse_args(int argc, char **argv, struct option options[], size_t options_co
   }
   return flags;
 }
-
-// option_array* parse_args(int argc, char **argv, const char* usage){
-//   option_array* return_options = malloc(sizeof(option_array));
-//   return_options->size = argc;
-//   return_options->array = calloc(argc, sizeof(option));
-//   for(int c = 0; c < argc; c++) {
-//     if(!strcmp(argv[c], "--help")) {
-//       puts(usage);
-//       exit(0);
-//     } else {
-//       if(sizeof(argv[c]) == sizeof(char)) {
-//         return_options->array[c].small = (char)argv[c];
-//       }
-//       return_options->array[c].name = argv[c];
-//     }
-//   }
-//   return return_options;
-// }
-//
-// option_array* create_options(int options_count, option options_[]) {
-//   option_array* options = malloc(sizeof(option_array));
-//   options->array = calloc(options_count, sizeof(option));
-//   options->size = options_count;
-//
-//   for(int c = 0; c < options_count; c++) {
-//     options->array[c] = options_[c];
-//   }
-//
-//   return options;
-// }
