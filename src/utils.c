@@ -33,12 +33,15 @@ int parse_args(int argc, char **argv, struct option options[], size_t options_co
         puts(version);
         exit(0);
       }
-      for(size_t i = 0; i < options_count; i++){
-        if(argv[c][1] == options[i].small) {
-          flags |= options[i].flag;
-          break;
+      for(size_t j = 1; j < strlen(argv[c]); j++) {
+        for(size_t i = 0; i < options_count; i++) {
+          if(argv[c][j] == options[i].small) {
+            flags |= options[i].flag;
+            break;
+          }
         }
       }
+      
     }
   }
   return flags;
