@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     }
     count++;
   }
-  if (count == 0) {
+  if (count != 2) {
     puts("cp: missing arguments");
     return 1;
   }
