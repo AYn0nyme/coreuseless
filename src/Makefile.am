@@ -1,0 +1,13 @@
+AM_CPPFLAGS = -I$(top_srcdir)/include
+bin_PROGRAMS = cat cp echo false ln ls mkdir mv rm true yes
+cat_SOURCES = cat.c utils.c
+cp_SOURCES = cp.c utils.c
+echo_SOURCES = echo.c utils.c
+false_SOURCES = false.c utils.c
+ln_SOURCES = ln.c utils.c
+ls_SOURCES = ls.c utils.c
+mkdir_SOURCES = mkdir.c utils.c
+mv_SOURCES = mv.c utils.c
+rm_SOURCES = rm.c utils.c
+true_SOURCES = true.c utils.c
+yes_SOURCES = yes.c utils.c
