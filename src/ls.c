@@ -3,7 +3,17 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 
+char* from_bytes_to_readable(off_t size, int convert) {
+  char* output = (char*)malloc(sizeof(char*)+size);
+
+  if(!convert){
+    sprintf(output, "%ld", size);
+    return output;
+  }
+  return "";
+}
 
 // From https://stackoverflow.com/a/47959703
 int pstrcmp(const void *a, const void *b) {
@@ -22,6 +32,8 @@ int pstrcmp(const void *a, const void *b) {
 #define FLAG_NOCOLOR (1 << 0)
 #define FLAG_ALL (1 << 1)
 #define FLAG_ALMSTALL (1 << 2)
+#define FLAG_SIZE (1 << 3)
+#define FLAG_SIZE_HMN_RDBL (1 << 4)
 
 const char* usage = "ls (PATH)\nlist all files/directories in current/given PATH";
 
@@ -29,6 +41,8 @@ struct option options[] = {
   opt("nocolor",'c',FLAG_NOCOLOR,"print without colors"),
   opt("all",'a',FLAG_ALL,"print everything including . and .."),
   opt("almost-all",'A',FLAG_ALMSTALL,"print everything except . and .."),
+  opt("size",'s',FLAG_SIZE,"get the size of the file/directory"),
+  opt("human-readable",'h',FLAG_SIZE_HMN_RDBL,"get the size in a human readable format"),
 };
 
 int ls(const char* path, int flags) {
@@ -55,7 +69,15 @@ int ls(const char* path, int flags) {
   for(int i = 0; i < c; i++) {
     switch(buf[i]->d_type){
       case DT_REG:
-        printf("%s", buf[i]->d_name);
+        // struct stat stat_buf;
+        // stat(buf[i]->d_name, &stat_buf);
+        // printf("%s-%ld", buf[i]->d_name, stat_buf.st_size);
+        if(flags & FLAG_SIZE) {
+          struct stat stat_buf;
+          lstat(buf[i]->d_name, &stat_buf);
+          char* size = from_bytes_to_readable(stat_buf.st_size, (flags & FLAG_SIZE_HMN_RDBL));
+          printf("%s %s", buf[i]->d_name, size);
+        }
         if(i+1 < c) putchar(' ');
         break;
       case DT_LNK:
