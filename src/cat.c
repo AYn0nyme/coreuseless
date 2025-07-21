@@ -1,4 +1,4 @@
-#include "../include/utils.h"
+#include "include/utils.h"
 #include <stdio.h>
 
 #define MAX_LINE_LENGTH 8192
