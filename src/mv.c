@@ -8,10 +8,6 @@
 
 const char* usage = "mv [SOURCE] [DESTINATION]\nmove SOURCE to DESTINATION";
 
-struct option options[] = {
-  opt("force",'f',FLAG_FORCE,"force move file"),
-  opt("verbose",'i',FLAG_VERBOSE,"get more infos"),
-};
 
 
 int mv(char* from, const char* to, int flags) {
@@ -57,7 +53,12 @@ int mv(char* from, const char* to, int flags) {
 }
 
 int main(int argc, char** argv) {
-  int flags = parse_args(argc, argv, options, array_len(options));
+  struct option options[] = {
+    opt("force",'f',FLAG_FORCE,"force move file"),
+    opt("verbose",'i',FLAG_VERBOSE,"get more infos"),
+  };
+
+  struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   char* from; char* to;
   for(int c = 1; c < argc; c++) {
@@ -75,5 +76,5 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  return mv(from, to, flags);
+  return mv(from, to, flags.flags);
 }

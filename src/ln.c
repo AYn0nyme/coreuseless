@@ -8,12 +8,6 @@
 
 const char* usage = "ln [SOURCE] [DESTINATION]\nlink DESTINATION to SOURCE";
 
-struct option options[] = {
-  opt("symbolic",'s',FLAG_SYMBOLIC,"symbolically link files"),
-  opt("force",'f',FLAG_FORCE,"force link file"),
-  opt("verbose",'i',FLAG_VERBOSE,"get more information"),
-};
-
 int ln(const char* from, const char* to, int flags) {
   FILE* file_from = fopen(from, "r");
 
@@ -28,8 +22,6 @@ int ln(const char* from, const char* to, int flags) {
     return 1;
   }
 
-
-
   if(!(flags & FLAG_SYMBOLIC)) link(from, to);
   else symlink(from, to);
 
@@ -39,7 +31,12 @@ int ln(const char* from, const char* to, int flags) {
 }
 
 int main(int argc, char** argv) {
-  int flags = parse_args(argc, argv, options, array_len(options));
+  struct option options[] = {
+    opt("symbolic",'s',FLAG_SYMBOLIC,"symbolically link files"),
+    opt("force",'f',FLAG_FORCE,"force link file"),
+    opt("verbose",'i',FLAG_VERBOSE,"get more information"),
+  };
+  struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   char* from = NULL; char* to = NULL;
   if(argc < 3) {
@@ -60,5 +57,5 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  return ln(from, to, flags);
+  return ln(from, to, flags.flags);
 }
