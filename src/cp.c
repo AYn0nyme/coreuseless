@@ -1,4 +1,4 @@
-#include "../include/utils.h"
+#include "include/utils.h"
 #include <stdio.h>
 #include <dirent.h>
 #include <sys/stat.h>
@@ -15,6 +15,7 @@ struct option options[] = {
   opt("recursive",'r',FLAG_RECURSIVE,"copy an entire directory"),
   opt("verbose",'i',FLAG_VERBOSE,"get more information"),
 };
+
 
 int cp(const char* from, const char* to, int flags) {
   DIR* dir = opendir(from);
@@ -76,7 +77,7 @@ int cp(const char* from, const char* to, int flags) {
 }
 
 int main(int argc, char** argv) {
-  int flags = parse_args(argc, argv, options, array_len(options));
+  struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   char* from = NULL;
   char* to = NULL;
@@ -95,5 +96,5 @@ int main(int argc, char** argv) {
     puts("cp: missing arguments");
     return 1;
   }
-  return cp(from, to, flags);
+  return cp(from, to, flags.flags);
 }

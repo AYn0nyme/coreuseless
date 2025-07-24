@@ -1,4 +1,4 @@
-#include "../include/utils.h"
+#include "include/utils.h"
 #include <stdio.h>
 #include <dirent.h>
 #include <string.h>
@@ -57,7 +57,8 @@ int mv(char* from, const char* to, int flags) {
 }
 
 int main(int argc, char** argv) {
-  int flags = parse_args(argc, argv, options, array_len(options));
+
+  struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   char* from; char* to;
   for(int c = 1; c < argc; c++) {
@@ -75,5 +76,5 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  return mv(from, to, flags);
+  return mv(from, to, flags.flags);
 }

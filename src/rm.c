@@ -1,4 +1,4 @@
-#include "../include/utils.h"
+#include "include/utils.h"
 #include <stdio.h>
 #include <dirent.h>
 #include <string.h>
@@ -44,12 +44,13 @@ int rm(const char* path, int flag) {
 }
 
 int main(int argc, char** argv) {
-  int flags = parse_args(argc, argv, options, array_len(options));
+
+  struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   int count = 0;
   for(int c = 1; c < argc; c++) {
     if(argv[c][0]=='-')continue;
-    if(rm(argv[c], flags)) {
+    if(rm(argv[c], flags.flags)) {
       return 1;
     }
     count++;
