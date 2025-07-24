@@ -68,6 +68,27 @@ struct parsed parse_args(int argc, char **argv, struct option options[], size_t 
         for(size_t i = 0; i < options_count; i++) {
           if(argv[c][j] == options[i].small) {
             output.flags |= options[i].flag;
+            if(options[i].takes_value) {
+              if(c+1 >= argc) continue;
+              char* val = strdup(argv[c+1]);
+
+              size_t size = output.value_count;
+              output.value = reallocarray(output.value, size+1, sizeof(struct value));
+              output.value[size].flag_name = options[i].name;
+              output.value_count++;
+
+              if(options[i].value.type == TYPE_BOOL) {
+                output.value[size].value = (void*)(bool)(!strcmp(val, "true"));
+                output.value[size].type = TYPE_BOOL;
+              } else if (options[i].value.type == TYPE_STRING) {
+                output.value[size].value = (void*)strdup(val);
+                output.value[size].type = TYPE_STRING;
+              } else if (options[i].value.type == TYPE_INT) {
+                int i_val = strtol(strdup(val), NULL, 0);
+                output.value[size].value = (void*)(intptr_t)i_val;
+                output.value[size].type = TYPE_INT;
+              }
+            }
             break;
           }
         }
