@@ -9,8 +9,9 @@
 #define TYPE_BOOL   2
 
 struct value {
-  uint8_t type ;
-  void*   value;
+  uint8_t type     ;
+  void*   value    ;
+  char*   flag_name;
 };
 
 struct option {
@@ -23,8 +24,9 @@ struct option {
 };
 
 struct parsed {
-  int          flags  ;
-  struct value value[];
+  int           flags      ;
+  struct value* value      ;
+  size_t        value_count;
 };
 
 #endif

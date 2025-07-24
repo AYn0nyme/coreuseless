@@ -13,12 +13,14 @@ struct option options[] = {
 };
 
 int main(int argc, char** argv) {
-  int flags = parse_args(argc, argv, options, array_len(options));
+
+
+  struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   for(int c = 0; c < argc; c++) {
     if(!strcmp(argv[c], "-n") || !strcmp(argv[c], "--nonewline") || !strcmp(argv[c], "-s") || !strcmp(argv[c], "--nospace")) continue;
     printf("%s", argv[c]);
-    if(!(flags & FLAG_NOSPACE) && c < argc) putchar(' ');
+    if(!(flags.flags & FLAG_NOSPACE) && c < argc) putchar(' ');
   }
-  if(!(flags & FLAG_NONWLN)) putchar('\n');
+  if(!(flags.flags & FLAG_NONWLN)) putchar('\n');
 }

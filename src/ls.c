@@ -37,6 +37,14 @@ int pstrcmp(const void *a, const void *b) {
 
 const char* usage = "ls (PATH)\nlist all files/directories in current/given PATH";
 
+struct option options[] = {
+  opt("nocolor",'c',FLAG_NOCOLOR,"print without colors"),
+  opt("all",'a',FLAG_ALL,"print everything including . and .."),
+  opt("almost-all",'A',FLAG_ALMSTALL,"print everything except . and .."),
+  opt("size",'s',FLAG_SIZE,"get the size of the file/directory"),
+  opt("human-readable",'h',FLAG_SIZE_HMN_RDBL,"get the size in a human readable format"),
+};
+
 int ls(const char* path, int flags) {
   DIR* dir = opendir(path);
   if(dir == NULL) {
@@ -96,13 +104,7 @@ int ls(const char* path, int flags) {
 }
 
 int main(int argc, char** argv) {
-  struct option options[] = {
-    opt("nocolor",'c',FLAG_NOCOLOR,"print without colors"),
-    opt("all",'a',FLAG_ALL,"print everything including . and .."),
-    opt("almost-all",'A',FLAG_ALMSTALL,"print everything except . and .."),
-    opt("size",'s',FLAG_SIZE,"get the size of the file/directory"),
-    opt("human-readable",'h',FLAG_SIZE_HMN_RDBL,"get the size in a human readable format"),
-  };
+
 
   struct parsed flags = parse_args(argc, argv, options, array_len(options));
 

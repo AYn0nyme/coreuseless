@@ -10,6 +10,13 @@
 
 const char* usage = "cp [SOURCE] [DESTINATION]\ncopy the content of SOURCE to DESTINATION\n-f, --force    force copy the SOURCE in DESTINATION, if it exists or not\n-r, --recursive    copy SOURCE folder and its content in DESTINATION\n-i, --verbose    get more information";
 
+struct option options[] = {
+  opt("force",'f',FLAG_FORCE,"force create file if exists"),
+  opt("recursive",'r',FLAG_RECURSIVE,"copy an entire directory"),
+  opt("verbose",'i',FLAG_VERBOSE,"get more information"),
+};
+
+
 int cp(const char* from, const char* to, int flags) {
   DIR* dir = opendir(from);
   if(dir != NULL) {
@@ -70,11 +77,6 @@ int cp(const char* from, const char* to, int flags) {
 }
 
 int main(int argc, char** argv) {
-  struct option options[] = {
-    opt("force",'f',FLAG_FORCE,"force create file if exists"),
-    opt("recursive",'r',FLAG_RECURSIVE,"copy an entire directory"),
-    opt("verbose",'i',FLAG_VERBOSE,"get more information"),
-  };
   struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   char* from = NULL;

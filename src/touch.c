@@ -56,12 +56,12 @@ int touch(const char* filename, int flags) {
 }
 
 int main(int argc, char** argv) {
-  int flags = parse_args(argc, argv, options, array_len(options));
+  struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   int count = 0;
   for(int c = 1; c < argc; c++) {
     if(argv[c][0]=='-')continue;
-    if(touch(argv[c], flags)) return 1;
+    if(touch(argv[c], flags.flags)) return 1;
     count++;
   }
   if (count == 0) {

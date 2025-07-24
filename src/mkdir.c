@@ -9,6 +9,12 @@
 
 const char* usage = "mkdir [DIRECTORY...]\nmake a/multiple DIRECTORY.IES";
 
+struct option options[] = {
+  opt("parents",'p',FLAG_PARENTS,"create parents if needed"),
+  opt("verbose",'i',FLAG_VERBOSE,"get more infos"),
+};
+
+
 int mkdirectory(char* path, int flags) {
   char* first_path = strtok(path, "/");
   DIR* dir = opendir(first_path);
@@ -31,11 +37,7 @@ int mkdirectory(char* path, int flags) {
 }
 
 int main(int argc, char** argv) {
-  struct option options[] = {
-    opt("parents",'p',FLAG_PARENTS,"create parents if needed"),
-    opt("verbose",'i',FLAG_VERBOSE,"get more infos"),
-  };
-
+  
   struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   if(argc < 2) {

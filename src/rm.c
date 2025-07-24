@@ -8,6 +8,11 @@
 
 const char* usage = "rm [FILES...]\nremove FILES from the filesystem\n-r, --recursive   delete folders\n-i, --verbose   program gets verbose";
 
+struct option options[] = {
+  opt("recursive",'r',FLAG_RECURSIVE,"delete folders"),
+  opt("verbose",'i',FLAG_VERBOSE,"program gets verbose"),
+};
+
 int rm(const char* path, int flag) {
   DIR* dir = opendir(path);
   if ((flag & FLAG_RECURSIVE) && dir != NULL) {
@@ -39,10 +44,7 @@ int rm(const char* path, int flag) {
 }
 
 int main(int argc, char** argv) {
-  struct option options[] = {
-    opt("recursive",'r',FLAG_RECURSIVE,"delete folders"),
-    opt("verbose",'i',FLAG_VERBOSE,"program gets verbose"),
-  };
+
   struct parsed flags = parse_args(argc, argv, options, array_len(options));
 
   int count = 0;
