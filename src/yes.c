@@ -7,7 +7,7 @@ int main(int argc, char** argv){
     if(argc < 2) putchar('y');
     for(int c = 1; c < argc; c++) {
       printf("%s", argv[c]);
-      if(c < argc) putchar(' ');
+      if(c+1 < argc) putchar(' ');
     }
     putchar('\n');
   }
