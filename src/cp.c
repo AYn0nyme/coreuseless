@@ -62,7 +62,7 @@ int cp(const char* from, const char* to, int flags) {
     return 1;
   }
   new_file = fopen(to, "w");
-  char c;
+  int c;
   while((c = fgetc(file)) != EOF) {
     fputc(c, new_file);
   }
