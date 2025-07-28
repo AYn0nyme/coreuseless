@@ -22,7 +22,7 @@ struct option options[] = {
 int touch(const char* filename, int flags) {
   FILE* file = fopen(filename, "r");
   if(file == NULL) {
-    if(!(flags & FLAG_NO_CREATE)) return 0;
+    if(flags & FLAG_NO_CREATE) return 0;
     fopen(filename, "w");
     if(flags & FLAG_VERBOSE) printf("touch: created %s\n", filename);
     return 0;

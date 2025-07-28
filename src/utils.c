@@ -34,7 +34,7 @@ struct parsed parse_args(int argc, char **argv, struct option options[], size_t 
             char* val = strdup(argv[c+1]);
 
             size_t size = output.value_count;
-            output.value = reallocarray(output.value, size+1, sizeof(struct value));
+            output.value = realloc(output.value, size+1 * sizeof(struct value));
             output.value[size].flag_name = options[i].name;
             output.value_count++;
 
@@ -73,7 +73,7 @@ struct parsed parse_args(int argc, char **argv, struct option options[], size_t 
               char* val = strdup(argv[c+1]);
 
               size_t size = output.value_count;
-              output.value = reallocarray(output.value, size+1, sizeof(struct value));
+              output.value = realloc(output.value, size+1 * sizeof(struct value));
               output.value[size].flag_name = options[i].name;
               output.value_count++;
 
