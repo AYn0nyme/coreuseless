@@ -83,7 +83,6 @@ int main(int argc, char** argv) {
   char* to = NULL;
   
   for(int c = 1; c < argc; c++) {
-    puts(argv[c]);
     if(argv[c][0] == '-') continue;
     if(from == NULL) {
       from = argv[c];
